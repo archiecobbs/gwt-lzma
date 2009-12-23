@@ -14,17 +14,16 @@ import org.dellroad.lzma.client.SevenZip.Compression.LZMA.Encoder;
  */
 public enum CompressionMode {
 
-    MODE_1(1, 0, 16, 64,  Encoder.EMatchFinderTypeBT2, 3, 0, 2),
-    MODE_2(2, 0, 20, 64,  Encoder.EMatchFinderTypeBT2, 3, 0, 2),
-    MODE_3(3, 1, 19, 64,  Encoder.EMatchFinderTypeBT4, 3, 0, 2),
-    MODE_4(4, 2, 20, 64,  Encoder.EMatchFinderTypeBT4, 3, 0, 2),
-    MODE_5(5, 2, 21, 128, Encoder.EMatchFinderTypeBT4, 3, 0, 2),
-    MODE_6(6, 2, 22, 128, Encoder.EMatchFinderTypeBT4, 3, 0, 2),
-    MODE_7(7, 2, 23, 128, Encoder.EMatchFinderTypeBT4, 3, 0, 2),
-    MODE_8(8, 2, 24, 255, Encoder.EMatchFinderTypeBT4, 3, 0, 2),
-    MODE_9(9, 2, 25, 255, Encoder.EMatchFinderTypeBT4, 3, 0, 2);
+    MODE_1(0, 16, 64,  Encoder.EMatchFinderTypeBT2, 3, 0, 2),
+    MODE_2(0, 20, 64,  Encoder.EMatchFinderTypeBT2, 3, 0, 2),
+    MODE_3(1, 19, 64,  Encoder.EMatchFinderTypeBT4, 3, 0, 2),
+    MODE_4(2, 20, 64,  Encoder.EMatchFinderTypeBT4, 3, 0, 2),
+    MODE_5(2, 21, 128, Encoder.EMatchFinderTypeBT4, 3, 0, 2),
+    MODE_6(2, 22, 128, Encoder.EMatchFinderTypeBT4, 3, 0, 2),
+    MODE_7(2, 23, 128, Encoder.EMatchFinderTypeBT4, 3, 0, 2),
+    MODE_8(2, 24, 255, Encoder.EMatchFinderTypeBT4, 3, 0, 2),
+    MODE_9(2, 25, 255, Encoder.EMatchFinderTypeBT4, 3, 0, 2);
 
-    private final int level;
     private final int algorithm;
     private final int dictionarySize;
     private final int fb;
@@ -33,8 +32,7 @@ public enum CompressionMode {
     private final int lp;
     private final int pb;
 
-    private CompressionMode(int level, int algorithm, int dictionarySize, int fb, int matchFinder, int lc, int lp, int pb) {
-        this.level = level;
+    private CompressionMode(int algorithm, int dictionarySize, int fb, int matchFinder, int lc, int lp, int pb) {
         this.algorithm = algorithm;
         this.dictionarySize = dictionarySize;
         this.fb = fb;
@@ -61,24 +59,13 @@ public enum CompressionMode {
     }
 
     /**
-     * Return the integer level number corresponding to this instance.
+     * The the instance corresponding to the integer {@code mode}.
      *
-     * @return a value from 1 to 9
-     * @see #get get()
-     */
-    public int getLevel() {
-        return this.level;
-    }
-
-    /**
-     * The the instance corresponding to the integer {@code level}.
-     *
-     * @param level value from 1 (fastest) to 9 (best)
+     * @param mode value from 1 (fastest) to 9 (best)
      * @throws IllegalArgumentException if {@code mode} is invalid
-     * @see #getLevel getLevel()
      */
-    public static CompressionMode get(int level) {
-        switch (level) {
+    public static CompressionMode get(int mode) {
+        switch (mode) {
         case 1:
             return MODE_1;
         case 2:
@@ -98,7 +85,7 @@ public enum CompressionMode {
         case 9:
             return MODE_9;
         default:
-            throw new IllegalArgumentException("invalid level " + level);
+            throw new IllegalArgumentException("invalid mode " + mode);
         }
     }
 }

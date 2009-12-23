@@ -35,23 +35,21 @@ import org.dellroad.lzma.client.UTF8;
 
 public class LZMADemo implements EntryPoint {
 
-    private static final CompressionMode DEFAULT_COMPRESSION_MODE = CompressionMode.MODE_1;
-
     private final TextArea leftWindow = new TextArea();
     private final TextArea rightWindow = new TextArea();
 
     private final SimplePanel leftSizePanel = new SimplePanel();
     private final SimplePanel rightSizePanel = new SimplePanel();
 
-    private CompressionMode mode = DEFAULT_COMPRESSION_MODE;
+    private CompressionMode mode = CompressionMode.MODE_2;
 
     private boolean compressing;
 
     public LZMADemo() {
-        this.leftWindow.setCharacterWidth(70);
-        this.leftWindow.setVisibleLines(25);
-        this.rightWindow.setCharacterWidth(70);
-        this.rightWindow.setVisibleLines(25);
+        this.leftWindow.setCharacterWidth(80);
+        this.leftWindow.setVisibleLines(40);
+        this.rightWindow.setCharacterWidth(80);
+        this.rightWindow.setVisibleLines(40);
     }
 
     public void onModuleLoad() {
@@ -86,7 +84,7 @@ public class LZMADemo implements EntryPoint {
         final ListBox modeBox = new ListBox();
         for (int i = 1; i <= 9; i++)
             modeBox.addItem("Level " + i, "" + i);
-        modeBox.setSelectedIndex(DEFAULT_COMPRESSION_MODE.getLevel() - 1);
+        modeBox.setSelectedIndex(1);
         modeBox.addChangeHandler(new ChangeHandler() {
             public void onChange(ChangeEvent ev) {
                 LZMADemo.this.mode = CompressionMode.get(modeBox.getSelectedIndex() + 1);
@@ -115,12 +113,10 @@ public class LZMADemo implements EntryPoint {
         rightBottom.add(this.rightSizePanel);
 
         VerticalPanel leftPanel = new VerticalPanel();
-        leftPanel.setStylePrimaryName("demo-panel");
         leftPanel.add(this.leftWindow);
         leftPanel.add(leftBottom);
 
         VerticalPanel rightPanel = new VerticalPanel();
-        rightPanel.setStylePrimaryName("demo-panel");
         rightPanel.add(rightWindow);
         rightPanel.add(rightBottom);
 
@@ -172,12 +168,7 @@ public class LZMADemo implements EntryPoint {
             LZMAByteArrayDecompressor d;
             public boolean execute() {
                 if (d == null) {
-                    try {
-                        d = new LZMAByteArrayDecompressor(data);
-                    } catch (IOException e) {
-                        LZMADemo.this.leftSizePanel.setWidget(new Label("Decompression failed: " + e.getMessage()));
-                        return false;
-                    }
+                    d = new LZMAByteArrayDecompressor(data);
                     return true;
                 }
                 if (d.execute()) {
