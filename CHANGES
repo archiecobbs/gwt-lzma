@@ -1,8 +1,9 @@
 
-Release 1.1
+Release 1.1 (r11) released 3 Nov 2011
 
     - Exposed possible IOException in LZMAByteArrayDecompressor constructor.
     - Added CompressionMode.getLevel().
+    - Update to GWT 2.4.0
 
 Release 1.0 (r3) released 16 Dec 2009
 
