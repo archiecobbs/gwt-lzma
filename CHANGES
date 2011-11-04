@@ -1,5 +1,5 @@
 
-Release 1.1 (r11) released 3 Nov 2011
+Release 1.1 (r13) released 3 Nov 2011
 
     - Exposed possible IOException in LZMAByteArrayDecompressor constructor.
     - Added CompressionMode.getLevel().
