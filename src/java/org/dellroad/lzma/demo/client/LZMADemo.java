@@ -9,13 +9,12 @@ package org.dellroad.lzma.demo.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.CommandCanceledException;
-import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.IncrementalCommand;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -137,8 +136,9 @@ public class LZMADemo implements EntryPoint {
         updateSizes(false);
         this.rightSizePanel.setWidget(new Label("Compressing... 0%"));
         this.compressing = true;
-        DeferredCommand.addCommand(new IncrementalCommand() {
+        Scheduler.get().scheduleIncremental(new Scheduler.RepeatingCommand() {
             LZMAByteArrayCompressor c;
+            @Override
             public boolean execute() {
                 if (c == null) {
                     c = new LZMAByteArrayCompressor(UTF8.encode(LZMADemo.this.leftWindow.getText()), LZMADemo.this.mode);
@@ -168,8 +168,9 @@ public class LZMADemo implements EntryPoint {
         // Decompress it
         this.leftSizePanel.setWidget(new Label("Decompressing... 0%"));
         this.compressing = false;
-        DeferredCommand.addCommand(new IncrementalCommand() {
+        Scheduler.get().scheduleIncremental(new Scheduler.RepeatingCommand() {
             LZMAByteArrayDecompressor d;
+            @Override
             public boolean execute() {
                 if (d == null) {
                     try {

@@ -7,7 +7,7 @@
 
 package org.dellroad.lzma.client;
 
-import com.google.gwt.user.client.IncrementalCommand;
+import com.google.gwt.core.client.Scheduler;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +19,7 @@ import org.dellroad.lzma.client.SevenZip.Compression.LZMA.Decoder;
 /**
  * LZMA decompressor.
  */
-public class LZMADecompressor implements IncrementalCommand {
+public class LZMADecompressor implements Scheduler.RepeatingCommand {
 
     private Chunker chunker;
     private long length;
@@ -80,6 +80,7 @@ public class LZMADecompressor implements IncrementalCommand {
      * @return {@code true} if there is more work to do, otherwise {@code false}
      * @throws IllegalStateException if this compression operation has already completed
      */
+    @Override
     public boolean execute() {
         try {
             return this.chunker.processChunk();

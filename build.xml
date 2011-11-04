@@ -49,7 +49,7 @@
         <dellroad:javadoc>
             <links>
                 <link href="http://java.sun.com/javase/6/docs/api/"/>
-                <link href="http://google-web-toolkit.googlecode.com/svn/javadoc/1.6"/>
+                <link href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.4"/>
             </links>
             <excludes>
                 <exclude name="org/dellroad/lzma/client/SevenZip"/>
@@ -104,30 +104,6 @@
                 </java>
             </sequential>
         </antcontrib:outofdate>
-    </target>
-
-    <!-- GWT hosted mode -->
-    <target name="hosted" depends="demo, gwtc.classpath" description="Run in GWT hosted mode">
-        <delete dir="build/hosted"/>
-        <mkdir dir="build/hosted/war"/>
-        <copy todir="build/hosted/war">
-            <fileset dir="build/gwtc/war"/>
-        </copy>
-        <java fork="true" spawn="true" classname="com.google.gwt.dev.HostedMode">
-            <classpath>
-                <pathelement location="/usr/share/gwt-linux-1.7.0/gwt-dev-linux.jar"/>
-                <pathelement location="/usr/share/gwt-linux-1.7.0/gwt-user.jar"/>
-                <path refid="gwtc.classpath"/>
-                <pathelement location="src/java"/>
-            </classpath>
-            <jvmarg value="-Xmx400M"/>
-            <arg value="-logLevel"/>    <arg value="INFO"/>
-            <arg value="-startupUrl"/>  <arg value="lzma_demo/LZMADemo.html"/>
-            <arg value="-gen"/>         <arg value="build/hosted/gen"/>
-            <arg value="-war"/>         <arg value="build/hosted/war"/>
-            <arg value="-extra"/>       <arg value="build/hosted/extra"/>
-            <arg value="org.dellroad.lzma.demo.LZMADemo"/>
-        </java>
     </target>
 
     <target name="publish" depends="clean, demo, javadoc">

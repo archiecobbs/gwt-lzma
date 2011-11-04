@@ -25,7 +25,10 @@
     </publications>
 
     <dependencies>
-        <dependency org="com.google" name="gwt" rev="1.7.0" conf="javac,gwtc->linux"/>
+        <dependency org="com.google" name="gwt" rev="2.4.0" conf="javac,gwtc->compile"/>
+        <dependency org="javax.validation" name="validation-api" rev="1.0.0.GA" conf="gwtc->default">
+            <artifact name="source" type="source"/>
+        </dependency>
     </dependencies>
 
 </ivy-module>
