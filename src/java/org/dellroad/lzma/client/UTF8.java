@@ -77,7 +77,7 @@ public final class UTF8 {
                 int y = utf[++i] & 0xff;
                 if ((y & 0xc0) != 0x80)
                     throw new IllegalArgumentException("invalid UTF-8");
-                buf.append((char)((x & 0x1f) << 6) | (y & 0x3f));
+                buf.append((char)(((x & 0x1f) << 6) | (y & 0x3f)));
             } else if ((x & 0xf0) == 0xe0) {
                 if (i + 2 >= utf.length)
                     throw new IllegalArgumentException("invalid UTF-8");
@@ -92,6 +92,20 @@ public final class UTF8 {
                 throw new IllegalArgumentException("invalid UTF-8");
         }
         return buf.toString();
+    }
+
+    public static void main(String[] args) throws Exception {
+        for (String arg : args) {
+            final byte[] utf = UTF8.encode(arg);
+            StringBuilder buf = new StringBuilder(utf.length * 2);
+            for (byte b : utf) {
+                int val = b & 0xff;
+                buf.append(Integer.toHexString(val >> 4));
+                buf.append(Integer.toHexString(val & 0xf));
+            }
+            System.out.println("encode(\"" + arg + "\") = " + buf);
+            System.out.println("decode(" + buf + ") = \"" + UTF8.decode(utf) + "\"");
+        }
     }
 }
 
