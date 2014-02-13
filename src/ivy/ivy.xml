@@ -25,8 +25,9 @@
     </publications>
 
     <dependencies>
-        <dependency org="com.google" name="gwt" rev="2.4.0" conf="javac,gwtc->compile"/>
+        <dependency org="com.google" name="gwt" rev="2.5.1" conf="javac,gwtc->compile"/>
         <dependency org="javax.validation" name="validation-api" rev="1.0.0.GA" conf="gwtc->default">
+            <artifact name="validation-api" type="jar"/>
             <artifact name="source" type="source"/>
         </dependency>
     </dependencies>

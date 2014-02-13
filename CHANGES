@@ -1,4 +1,8 @@
 
+Release 1.2 (r15) released 13 Feb 2014
+
+    - Fixed bug in UTF8.decode() (issue #1)
+
 Release 1.1 (r13) released 3 Nov 2011
 
     - Exposed possible IOException in LZMAByteArrayDecompressor constructor.
